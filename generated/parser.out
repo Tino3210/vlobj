@@ -1,0 +1,894 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    CONDITION
+    ELSE
+    IF
+    XD
+    XS
+
+Grammar
+
+Rule 0     S' -> programme
+Rule 1     programme -> statement
+Rule 2     programme -> statement DOTCOMMA programme
+Rule 3     statement -> assignation
+Rule 4     statement -> structure
+Rule 5     statement -> square
+Rule 6     statement -> pyramid
+Rule 7     statement -> color
+Rule 8     assignation -> IDENTIFIER EQUALS expression
+Rule 9     square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+Rule 10    pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+Rule 11    pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+Rule 12    color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+Rule 13    structure -> WHILE expression ACOL_START programme ACOL_END
+Rule 14    expression -> expression ADD_OP expression
+Rule 15    expression -> expression MUL_OP expression
+Rule 16    expression -> ADD_OP expression
+Rule 17    expression -> NUMBER
+Rule 18    expression -> STRING
+Rule 19    expression -> IDENTIFIER
+
+Terminals, with rules where they appear
+
+ACOL_END             : 13
+ACOL_START           : 13
+ADD_OP               : 14 16
+COLOR                : 12
+COMMA                : 9 9 9 10 10 10 11 11 11 11 12 12 12
+CONDITION            : 
+DOTCOMMA             : 2
+ELSE                 : 
+EQUALS               : 8
+IDENTIFIER           : 8 19
+IF                   : 
+MUL_OP               : 15
+NUMBER               : 17
+PAR_END              : 9 10 11 12
+PAR_START            : 9 10 11 12
+PYRAMID              : 10 11
+SQUARE               : 9
+STRING               : 18
+WHILE                : 13
+XD                   : 
+XS                   : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+assignation          : 3
+color                : 7
+expression           : 8 9 9 9 9 10 10 10 10 11 11 11 11 11 12 12 12 12 13 14 14 15 15 16
+programme            : 2 13 0
+pyramid              : 6
+square               : 5
+statement            : 1 2
+structure            : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programme
+    (1) programme -> . statement
+    (2) programme -> . statement DOTCOMMA programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . square
+    (6) statement -> . pyramid
+    (7) statement -> . color
+    (8) assignation -> . IDENTIFIER EQUALS expression
+    (13) structure -> . WHILE expression ACOL_START programme ACOL_END
+    (9) square -> . SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (10) pyramid -> . PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> . PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+    (12) color -> . COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+
+    IDENTIFIER      shift and go to state 8
+    WHILE           shift and go to state 9
+    SQUARE          shift and go to state 10
+    PYRAMID         shift and go to state 11
+    COLOR           shift and go to state 12
+
+    programme                      shift and go to state 1
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+    square                         shift and go to state 5
+    pyramid                        shift and go to state 6
+    color                          shift and go to state 7
+
+state 1
+
+    (0) S' -> programme .
+
+
+
+state 2
+
+    (1) programme -> statement .
+    (2) programme -> statement . DOTCOMMA programme
+
+    $end            reduce using rule 1 (programme -> statement .)
+    ACOL_END        reduce using rule 1 (programme -> statement .)
+    DOTCOMMA        shift and go to state 13
+
+
+state 3
+
+    (3) statement -> assignation .
+
+    DOTCOMMA        reduce using rule 3 (statement -> assignation .)
+    $end            reduce using rule 3 (statement -> assignation .)
+    ACOL_END        reduce using rule 3 (statement -> assignation .)
+
+
+state 4
+
+    (4) statement -> structure .
+
+    DOTCOMMA        reduce using rule 4 (statement -> structure .)
+    $end            reduce using rule 4 (statement -> structure .)
+    ACOL_END        reduce using rule 4 (statement -> structure .)
+
+
+state 5
+
+    (5) statement -> square .
+
+    DOTCOMMA        reduce using rule 5 (statement -> square .)
+    $end            reduce using rule 5 (statement -> square .)
+    ACOL_END        reduce using rule 5 (statement -> square .)
+
+
+state 6
+
+    (6) statement -> pyramid .
+
+    DOTCOMMA        reduce using rule 6 (statement -> pyramid .)
+    $end            reduce using rule 6 (statement -> pyramid .)
+    ACOL_END        reduce using rule 6 (statement -> pyramid .)
+
+
+state 7
+
+    (7) statement -> color .
+
+    DOTCOMMA        reduce using rule 7 (statement -> color .)
+    $end            reduce using rule 7 (statement -> color .)
+    ACOL_END        reduce using rule 7 (statement -> color .)
+
+
+state 8
+
+    (8) assignation -> IDENTIFIER . EQUALS expression
+
+    EQUALS          shift and go to state 14
+
+
+state 9
+
+    (13) structure -> WHILE . expression ACOL_START programme ACOL_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 15
+
+state 10
+
+    (9) square -> SQUARE . PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+
+    PAR_START       shift and go to state 20
+
+
+state 11
+
+    (10) pyramid -> PYRAMID . PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> PYRAMID . PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+
+    PAR_START       shift and go to state 21
+
+
+state 12
+
+    (12) color -> COLOR . PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+
+    PAR_START       shift and go to state 22
+
+
+state 13
+
+    (2) programme -> statement DOTCOMMA . programme
+    (1) programme -> . statement
+    (2) programme -> . statement DOTCOMMA programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . square
+    (6) statement -> . pyramid
+    (7) statement -> . color
+    (8) assignation -> . IDENTIFIER EQUALS expression
+    (13) structure -> . WHILE expression ACOL_START programme ACOL_END
+    (9) square -> . SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (10) pyramid -> . PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> . PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+    (12) color -> . COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+
+    IDENTIFIER      shift and go to state 8
+    WHILE           shift and go to state 9
+    SQUARE          shift and go to state 10
+    PYRAMID         shift and go to state 11
+    COLOR           shift and go to state 12
+
+    statement                      shift and go to state 2
+    programme                      shift and go to state 23
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+    square                         shift and go to state 5
+    pyramid                        shift and go to state 6
+    color                          shift and go to state 7
+
+state 14
+
+    (8) assignation -> IDENTIFIER EQUALS . expression
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 24
+
+state 15
+
+    (13) structure -> WHILE expression . ACOL_START programme ACOL_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    ACOL_START      shift and go to state 25
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 16
+
+    (16) expression -> ADD_OP . expression
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 28
+
+state 17
+
+    (17) expression -> NUMBER .
+
+    ACOL_START      reduce using rule 17 (expression -> NUMBER .)
+    ADD_OP          reduce using rule 17 (expression -> NUMBER .)
+    MUL_OP          reduce using rule 17 (expression -> NUMBER .)
+    DOTCOMMA        reduce using rule 17 (expression -> NUMBER .)
+    $end            reduce using rule 17 (expression -> NUMBER .)
+    ACOL_END        reduce using rule 17 (expression -> NUMBER .)
+    COMMA           reduce using rule 17 (expression -> NUMBER .)
+    PAR_END         reduce using rule 17 (expression -> NUMBER .)
+
+
+state 18
+
+    (18) expression -> STRING .
+
+    ACOL_START      reduce using rule 18 (expression -> STRING .)
+    ADD_OP          reduce using rule 18 (expression -> STRING .)
+    MUL_OP          reduce using rule 18 (expression -> STRING .)
+    DOTCOMMA        reduce using rule 18 (expression -> STRING .)
+    $end            reduce using rule 18 (expression -> STRING .)
+    ACOL_END        reduce using rule 18 (expression -> STRING .)
+    COMMA           reduce using rule 18 (expression -> STRING .)
+    PAR_END         reduce using rule 18 (expression -> STRING .)
+
+
+state 19
+
+    (19) expression -> IDENTIFIER .
+
+    ACOL_START      reduce using rule 19 (expression -> IDENTIFIER .)
+    ADD_OP          reduce using rule 19 (expression -> IDENTIFIER .)
+    MUL_OP          reduce using rule 19 (expression -> IDENTIFIER .)
+    DOTCOMMA        reduce using rule 19 (expression -> IDENTIFIER .)
+    $end            reduce using rule 19 (expression -> IDENTIFIER .)
+    ACOL_END        reduce using rule 19 (expression -> IDENTIFIER .)
+    COMMA           reduce using rule 19 (expression -> IDENTIFIER .)
+    PAR_END         reduce using rule 19 (expression -> IDENTIFIER .)
+
+
+state 20
+
+    (9) square -> SQUARE PAR_START . expression COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 29
+
+state 21
+
+    (10) pyramid -> PYRAMID PAR_START . expression COMMA expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START . expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 30
+
+state 22
+
+    (12) color -> COLOR PAR_START . expression COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 31
+
+state 23
+
+    (2) programme -> statement DOTCOMMA programme .
+
+    $end            reduce using rule 2 (programme -> statement DOTCOMMA programme .)
+    ACOL_END        reduce using rule 2 (programme -> statement DOTCOMMA programme .)
+
+
+state 24
+
+    (8) assignation -> IDENTIFIER EQUALS expression .
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    DOTCOMMA        reduce using rule 8 (assignation -> IDENTIFIER EQUALS expression .)
+    $end            reduce using rule 8 (assignation -> IDENTIFIER EQUALS expression .)
+    ACOL_END        reduce using rule 8 (assignation -> IDENTIFIER EQUALS expression .)
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 25
+
+    (13) structure -> WHILE expression ACOL_START . programme ACOL_END
+    (1) programme -> . statement
+    (2) programme -> . statement DOTCOMMA programme
+    (3) statement -> . assignation
+    (4) statement -> . structure
+    (5) statement -> . square
+    (6) statement -> . pyramid
+    (7) statement -> . color
+    (8) assignation -> . IDENTIFIER EQUALS expression
+    (13) structure -> . WHILE expression ACOL_START programme ACOL_END
+    (9) square -> . SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (10) pyramid -> . PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> . PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+    (12) color -> . COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END
+
+    IDENTIFIER      shift and go to state 8
+    WHILE           shift and go to state 9
+    SQUARE          shift and go to state 10
+    PYRAMID         shift and go to state 11
+    COLOR           shift and go to state 12
+
+    programme                      shift and go to state 32
+    statement                      shift and go to state 2
+    assignation                    shift and go to state 3
+    structure                      shift and go to state 4
+    square                         shift and go to state 5
+    pyramid                        shift and go to state 6
+    color                          shift and go to state 7
+
+state 26
+
+    (14) expression -> expression ADD_OP . expression
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 33
+
+state 27
+
+    (15) expression -> expression MUL_OP . expression
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 34
+
+state 28
+
+    (16) expression -> ADD_OP expression .
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    ACOL_START      reduce using rule 16 (expression -> ADD_OP expression .)
+    ADD_OP          reduce using rule 16 (expression -> ADD_OP expression .)
+    MUL_OP          reduce using rule 16 (expression -> ADD_OP expression .)
+    DOTCOMMA        reduce using rule 16 (expression -> ADD_OP expression .)
+    $end            reduce using rule 16 (expression -> ADD_OP expression .)
+    ACOL_END        reduce using rule 16 (expression -> ADD_OP expression .)
+    COMMA           reduce using rule 16 (expression -> ADD_OP expression .)
+    PAR_END         reduce using rule 16 (expression -> ADD_OP expression .)
+
+  ! ADD_OP          [ shift and go to state 26 ]
+  ! MUL_OP          [ shift and go to state 27 ]
+
+
+state 29
+
+    (9) square -> SQUARE PAR_START expression . COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 35
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 30
+
+    (10) pyramid -> PYRAMID PAR_START expression . COMMA expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression . COMMA expression COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 36
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 31
+
+    (12) color -> COLOR PAR_START expression . COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 37
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 32
+
+    (13) structure -> WHILE expression ACOL_START programme . ACOL_END
+
+    ACOL_END        shift and go to state 38
+
+
+state 33
+
+    (14) expression -> expression ADD_OP expression .
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    ACOL_START      reduce using rule 14 (expression -> expression ADD_OP expression .)
+    ADD_OP          reduce using rule 14 (expression -> expression ADD_OP expression .)
+    DOTCOMMA        reduce using rule 14 (expression -> expression ADD_OP expression .)
+    $end            reduce using rule 14 (expression -> expression ADD_OP expression .)
+    ACOL_END        reduce using rule 14 (expression -> expression ADD_OP expression .)
+    COMMA           reduce using rule 14 (expression -> expression ADD_OP expression .)
+    PAR_END         reduce using rule 14 (expression -> expression ADD_OP expression .)
+    MUL_OP          shift and go to state 27
+
+  ! MUL_OP          [ reduce using rule 14 (expression -> expression ADD_OP expression .) ]
+  ! ADD_OP          [ shift and go to state 26 ]
+
+
+state 34
+
+    (15) expression -> expression MUL_OP expression .
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    ACOL_START      reduce using rule 15 (expression -> expression MUL_OP expression .)
+    ADD_OP          reduce using rule 15 (expression -> expression MUL_OP expression .)
+    MUL_OP          reduce using rule 15 (expression -> expression MUL_OP expression .)
+    DOTCOMMA        reduce using rule 15 (expression -> expression MUL_OP expression .)
+    $end            reduce using rule 15 (expression -> expression MUL_OP expression .)
+    ACOL_END        reduce using rule 15 (expression -> expression MUL_OP expression .)
+    COMMA           reduce using rule 15 (expression -> expression MUL_OP expression .)
+    PAR_END         reduce using rule 15 (expression -> expression MUL_OP expression .)
+
+  ! ADD_OP          [ shift and go to state 26 ]
+  ! MUL_OP          [ shift and go to state 27 ]
+
+
+state 35
+
+    (9) square -> SQUARE PAR_START expression COMMA . expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 39
+
+state 36
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA . expression COMMA expression COMMA expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression COMMA . expression COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 40
+
+state 37
+
+    (12) color -> COLOR PAR_START expression COMMA . expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 41
+
+state 38
+
+    (13) structure -> WHILE expression ACOL_START programme ACOL_END .
+
+    DOTCOMMA        reduce using rule 13 (structure -> WHILE expression ACOL_START programme ACOL_END .)
+    $end            reduce using rule 13 (structure -> WHILE expression ACOL_START programme ACOL_END .)
+    ACOL_END        reduce using rule 13 (structure -> WHILE expression ACOL_START programme ACOL_END .)
+
+
+state 39
+
+    (9) square -> SQUARE PAR_START expression COMMA expression . COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 42
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 40
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA expression . COMMA expression COMMA expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression . COMMA expression COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 43
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 41
+
+    (12) color -> COLOR PAR_START expression COMMA expression . COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 44
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 42
+
+    (9) square -> SQUARE PAR_START expression COMMA expression COMMA . expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 45
+
+state 43
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA . expression COMMA expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA . expression COMMA expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 46
+
+state 44
+
+    (12) color -> COLOR PAR_START expression COMMA expression COMMA . expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 47
+
+state 45
+
+    (9) square -> SQUARE PAR_START expression COMMA expression COMMA expression . COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 48
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 46
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression . COMMA expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression . COMMA expression COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 49
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 47
+
+    (12) color -> COLOR PAR_START expression COMMA expression COMMA expression . COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    COMMA           shift and go to state 50
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 48
+
+    (9) square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA . expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 51
+
+state 49
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA . expression PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA . expression COMMA expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 52
+
+state 50
+
+    (12) color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA . expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 53
+
+state 51
+
+    (9) square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression . PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    PAR_END         shift and go to state 54
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 52
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression . PAR_END
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression . COMMA expression PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    PAR_END         shift and go to state 56
+    COMMA           shift and go to state 55
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 53
+
+    (12) color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression . PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    PAR_END         shift and go to state 57
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 54
+
+    (9) square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .
+
+    DOTCOMMA        reduce using rule 9 (square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    $end            reduce using rule 9 (square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    ACOL_END        reduce using rule 9 (square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+
+
+state 55
+
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA . expression PAR_END
+    (14) expression -> . expression ADD_OP expression
+    (15) expression -> . expression MUL_OP expression
+    (16) expression -> . ADD_OP expression
+    (17) expression -> . NUMBER
+    (18) expression -> . STRING
+    (19) expression -> . IDENTIFIER
+
+    ADD_OP          shift and go to state 16
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    IDENTIFIER      shift and go to state 19
+
+    expression                     shift and go to state 58
+
+state 56
+
+    (10) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .
+
+    DOTCOMMA        reduce using rule 10 (pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    $end            reduce using rule 10 (pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    ACOL_END        reduce using rule 10 (pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+
+
+state 57
+
+    (12) color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .
+
+    DOTCOMMA        reduce using rule 12 (color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    $end            reduce using rule 12 (color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    ACOL_END        reduce using rule 12 (color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END .)
+
+
+state 58
+
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression . PAR_END
+    (14) expression -> expression . ADD_OP expression
+    (15) expression -> expression . MUL_OP expression
+
+    PAR_END         shift and go to state 59
+    ADD_OP          shift and go to state 26
+    MUL_OP          shift and go to state 27
+
+
+state 59
+
+    (11) pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END .
+
+    DOTCOMMA        reduce using rule 11 (pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    $end            reduce using rule 11 (pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END .)
+    ACOL_END        reduce using rule 11 (pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END .)
+

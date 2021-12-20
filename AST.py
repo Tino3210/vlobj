@@ -132,14 +132,41 @@ class OpNode(Node):
 class AssignNode(Node):
     type = '='
 
-
 class PrintNode(Node):
     type = 'print'
-
 
 class WhileNode(Node):
     type = 'while'
 
+class SquareNode(Node):
+    type = 'square'
+
+    def __init__(self, children):
+        Node.__init__(self, children)
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
+
+class PyramidNode(Node):
+    type = 'pyramid'
+
+    def __init__(self, children):
+        Node.__init__(self, children)
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
+
+class ColorNode(Node):
+    type = 'color'
+
+    def __init__(self, children):
+        Node.__init__(self, children)
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
 
 class EntryNode(Node):
     type = 'ENTRY'

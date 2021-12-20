@@ -6,7 +6,8 @@ reserved_words = (
     'xS',
     'else',
     'Square',
-    'Pyramid'
+    'Pyramid',
+    'Color'
 )
 
 tokens = (
@@ -24,6 +25,7 @@ tokens = (
     'COMMA',
     'STRING',
     'CONDITION',
+    'DOTCOMMA',
 ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 t_ADD_OP = r'(\+)|(-)'
@@ -36,6 +38,7 @@ t_ACOL_END = r'\):'
 t_COMMA = r'\,'
 t_STRING = r'\'[a-zA-Z_]\w*\''
 t_CONDITION = r'(>)|(<)|(\=\=)'
+t_DOTCOMMA = r';'
 
 t_ignore = '\t '
 
