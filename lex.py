@@ -26,6 +26,7 @@ tokens = (
     'STRING',
     'CONDITION',
     'DOTCOMMA',
+    'UNDERSCORE'
 ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 t_ADD_OP = r'(\+)|(-)'
@@ -39,6 +40,7 @@ t_COMMA = r'\,'
 t_STRING = r'\'[a-zA-Z_]\w*\''
 t_CONDITION = r'(>)|(<)|(\=\=)'
 t_DOTCOMMA = r';'
+t_UNDERSCORE = r'\_'
 
 t_ignore = '\t '
 
@@ -60,7 +62,7 @@ def t_NUMBER(t):
 
 
 def t_IDENTIFIER(t):
-    r'[a-zA-Z_]\w*'
+    r'[a-zA-Z]\w*'
     if t.value in reserved_words:
         t.type = t.value.upper()
     return t

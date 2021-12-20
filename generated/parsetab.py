@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftADD_OPleftMUL_OPrightUMINUSACOL_END ACOL_START ADD_OP COLOR COMMA CONDITION DOTCOMMA ELSE EQUALS IDENTIFIER IF MUL_OP NUMBER PAR_END PAR_START PYRAMID SQUARE STRING WHILE XD XSprogramme : statementprogramme : statement DOTCOMMA programmestatement : assignation\n                    | structure\n                    | square\n                    | pyramid\n                    | colorassignation : IDENTIFIER EQUALS expressionsquare : SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_ENDpyramid : PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END\n                | PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_ENDcolor : COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_ENDstructure : WHILE expression ACOL_START programme ACOL_ENDexpression : expression ADD_OP expression \n                    | expression MUL_OP expressionexpression : ADD_OP expression %prec UMINUSexpression : NUMBER\n                    | STRINGexpression : IDENTIFIER'
+_lr_signature = 'leftADD_OPleftMUL_OPrightUMINUSACOL_END ACOL_START ADD_OP COLOR COMMA CONDITION DOTCOMMA ELSE EQUALS IDENTIFIER IF MUL_OP NUMBER PAR_END PAR_START PYRAMID SQUARE STRING UNDERSCORE WHILE XD XSprogramme : statementprogramme : statement DOTCOMMA programmestatement : assignation\n                    | structure\n                    | square\n                    | pyramid\n                    | randomShape\n                    | color\n                    | expressionassignation : IDENTIFIER EQUALS expressionrandomShape : XS PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END\n                | XS PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_ENDrandomnNumber : XD PAR_START NUMBER COMMA NUMBER PAR_ENDsquare : SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END\n                | SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_ENDpyramid : PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END\n                | PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_ENDcolor : COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_ENDstructure : WHILE expression ACOL_START programme ACOL_ENDstructure : IF PAR_START condition PAR_END ACOL_START programme ACOL_ENDcondition : expression CONDITION expressionexpression : IDENTIFIER ADD_OP UNDERSCORE ADD_OPexpression : expression ADD_OP expression \n                    | expression MUL_OP expressionexpression : ADD_OP expression %prec UMINUSexpression : NUMBER\n                    | STRINGexpression : IDENTIFIER'
     
-_lr_action_items = {'IDENTIFIER':([0,9,13,14,16,20,21,22,25,26,27,35,36,37,42,43,44,48,49,50,55,],[8,19,8,19,19,19,19,19,8,19,19,19,19,19,19,19,19,19,19,19,19,]),'WHILE':([0,13,25,],[9,9,9,]),'SQUARE':([0,13,25,],[10,10,10,]),'PYRAMID':([0,13,25,],[11,11,11,]),'COLOR':([0,13,25,],[12,12,12,]),'$end':([1,2,3,4,5,6,7,17,18,19,23,24,28,33,34,38,54,56,57,59,],[0,-1,-3,-4,-5,-6,-7,-17,-18,-19,-2,-8,-16,-14,-15,-13,-9,-10,-12,-11,]),'ACOL_END':([2,3,4,5,6,7,17,18,19,23,24,28,32,33,34,38,54,56,57,59,],[-1,-3,-4,-5,-6,-7,-17,-18,-19,-2,-8,-16,38,-14,-15,-13,-9,-10,-12,-11,]),'DOTCOMMA':([2,3,4,5,6,7,17,18,19,24,28,33,34,38,54,56,57,59,],[13,-3,-4,-5,-6,-7,-17,-18,-19,-8,-16,-14,-15,-13,-9,-10,-12,-11,]),'EQUALS':([8,],[14,]),'ADD_OP':([9,14,15,16,17,18,19,20,21,22,24,26,27,28,29,30,31,33,34,35,36,37,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,55,58,],[16,16,26,16,-17,-18,-19,16,16,16,26,16,16,-16,26,26,26,-14,-15,16,16,16,26,26,26,16,16,16,26,26,26,16,16,16,26,26,26,16,26,]),'NUMBER':([9,14,16,20,21,22,26,27,35,36,37,42,43,44,48,49,50,55,],[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,]),'STRING':([9,14,16,20,21,22,26,27,35,36,37,42,43,44,48,49,50,55,],[18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,]),'PAR_START':([10,11,12,],[20,21,22,]),'ACOL_START':([15,17,18,19,28,33,34,],[25,-17,-18,-19,-16,-14,-15,]),'MUL_OP':([15,17,18,19,24,28,29,30,31,33,34,39,40,41,45,46,47,51,52,53,58,],[27,-17,-18,-19,27,-16,27,27,27,27,-15,27,27,27,27,27,27,27,27,27,27,]),'COMMA':([17,18,19,28,29,30,31,33,34,39,40,41,45,46,47,52,],[-17,-18,-19,-16,35,36,37,-14,-15,42,43,44,48,49,50,55,]),'PAR_END':([17,18,19,28,33,34,51,52,53,58,],[-17,-18,-19,-16,-14,-15,54,56,57,59,]),}
+_lr_action_items = {'IDENTIFIER':([0,11,17,20,21,22,23,27,28,29,30,31,38,48,49,50,51,52,54,61,62,63,64,70,71,72,73,78,80,82,],[10,26,26,10,26,26,26,26,26,26,26,26,10,26,26,26,26,26,10,26,26,26,26,26,26,26,26,26,26,26,]),'WHILE':([0,20,38,54,],[11,11,11,11,]),'IF':([0,20,38,54,],[12,12,12,12,]),'SQUARE':([0,20,38,54,],[13,13,13,13,]),'PYRAMID':([0,20,38,54,],[14,14,14,14,]),'XS':([0,20,38,54,],[15,15,15,15,]),'COLOR':([0,20,38,54,],[16,16,16,16,]),'ADD_OP':([0,9,10,11,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,34,35,36,37,38,40,41,42,43,44,45,48,49,50,51,52,54,55,56,57,58,59,61,62,63,64,66,67,68,69,70,71,72,73,74,75,76,77,78,80,82,85,86,87,],[17,21,24,17,17,-26,-27,17,17,17,17,21,24,17,17,17,17,17,-25,-23,-24,21,45,17,21,21,21,21,21,-22,17,17,17,17,17,17,21,21,21,21,21,17,17,17,17,21,21,21,21,17,17,17,17,21,21,21,21,17,17,17,21,21,21,]),'NUMBER':([0,11,17,20,21,22,23,27,28,29,30,31,38,48,49,50,51,52,54,61,62,63,64,70,71,72,73,78,80,82,],[18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,18,]),'STRING':([0,11,17,20,21,22,23,27,28,29,30,31,38,48,49,50,51,52,54,61,62,63,64,70,71,72,73,78,80,82,],[19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,19,]),'$end':([1,2,3,4,5,6,7,8,9,10,18,19,26,32,33,34,35,36,45,53,65,79,81,83,84,88,89,90,],[0,-1,-3,-4,-5,-6,-7,-8,-9,-28,-26,-27,-28,-25,-2,-23,-24,-10,-22,-19,-20,-14,-16,-11,-18,-15,-17,-12,]),'ACOL_END':([2,3,4,5,6,7,8,9,10,18,19,26,32,33,34,35,36,45,46,53,60,65,79,81,83,84,88,89,90,],[-1,-3,-4,-5,-6,-7,-8,-9,-28,-26,-27,-28,-25,-2,-23,-24,-10,-22,53,-19,65,-20,-14,-16,-11,-18,-15,-17,-12,]),'DOTCOMMA':([2,3,4,5,6,7,8,9,10,18,19,26,32,34,35,36,45,53,65,79,81,83,84,88,89,90,],[20,-3,-4,-5,-6,-7,-8,-9,-28,-26,-27,-28,-25,-23,-24,-10,-22,-19,-20,-14,-16,-11,-18,-15,-17,-12,]),'MUL_OP':([9,10,18,19,25,26,32,34,35,36,40,41,42,43,44,45,55,56,57,58,59,66,67,68,69,74,75,76,77,85,86,87,],[22,-28,-26,-27,22,-28,-25,22,-24,22,22,22,22,22,22,-22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,]),'EQUALS':([10,],[23,]),'PAR_START':([12,13,14,15,16,],[27,28,29,30,31,]),'ACOL_START':([18,19,25,26,32,34,35,45,47,],[-26,-27,38,-28,-25,-23,-24,-22,54,]),'CONDITION':([18,19,26,32,34,35,40,45,],[-26,-27,-28,-25,-23,-24,48,-22,]),'COMMA':([18,19,26,32,34,35,41,42,43,44,45,56,57,58,59,66,67,68,69,74,75,76,],[-26,-27,-28,-25,-23,-24,49,50,51,52,-22,61,62,63,64,70,71,72,73,78,80,82,]),'PAR_END':([18,19,26,32,34,35,39,45,55,74,75,76,77,85,86,87,],[-26,-27,-28,-25,-23,-24,47,-22,-21,79,81,83,84,88,89,90,]),'UNDERSCORE':([24,],[37,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,13,25,],[1,23,32,]),'statement':([0,13,25,],[2,2,2,]),'assignation':([0,13,25,],[3,3,3,]),'structure':([0,13,25,],[4,4,4,]),'square':([0,13,25,],[5,5,5,]),'pyramid':([0,13,25,],[6,6,6,]),'color':([0,13,25,],[7,7,7,]),'expression':([9,14,16,20,21,22,26,27,35,36,37,42,43,44,48,49,50,55,],[15,24,28,29,30,31,33,34,39,40,41,45,46,47,51,52,53,58,]),}
+_lr_goto_items = {'programme':([0,20,38,54,],[1,33,46,60,]),'statement':([0,20,38,54,],[2,2,2,2,]),'assignation':([0,20,38,54,],[3,3,3,3,]),'structure':([0,20,38,54,],[4,4,4,4,]),'square':([0,20,38,54,],[5,5,5,5,]),'pyramid':([0,20,38,54,],[6,6,6,6,]),'randomShape':([0,20,38,54,],[7,7,7,7,]),'color':([0,20,38,54,],[8,8,8,8,]),'expression':([0,11,17,20,21,22,23,27,28,29,30,31,38,48,49,50,51,52,54,61,62,63,64,70,71,72,73,78,80,82,],[9,25,32,9,34,35,36,40,41,42,43,44,9,55,56,57,58,59,9,66,67,68,69,74,75,76,77,85,86,87,]),'condition':([27,],[39,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,23 +27,32 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
-  ('programme -> statement','programme',1,'p_programme_statement','parser.py',24),
-  ('programme -> statement DOTCOMMA programme','programme',3,'p_programme_recursive','parser.py',29),
-  ('statement -> assignation','statement',1,'p_statement','parser.py',35),
-  ('statement -> structure','statement',1,'p_statement','parser.py',36),
-  ('statement -> square','statement',1,'p_statement','parser.py',37),
-  ('statement -> pyramid','statement',1,'p_statement','parser.py',38),
-  ('statement -> color','statement',1,'p_statement','parser.py',39),
-  ('assignation -> IDENTIFIER EQUALS expression','assignation',3,'p_assignation','parser.py',46),
-  ('square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','square',10,'p_square','parser.py',50),
-  ('pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','pyramid',10,'p_pyramid','parser.py',54),
-  ('pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END','pyramid',12,'p_pyramid','parser.py',55),
-  ('color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','color',10,'p_color','parser.py',62),
-  ('structure -> WHILE expression ACOL_START programme ACOL_END','structure',5,'p_while','parser.py',66),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parser.py',70),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parser.py',71),
-  ('expression -> ADD_OP expression','expression',2,'p_expression_uminus','parser.py',75),
-  ('expression -> NUMBER','expression',1,'p_expression_num','parser.py',79),
-  ('expression -> STRING','expression',1,'p_expression_num','parser.py',80),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_IDENTIFIER','parser.py',85),
+  ('programme -> statement','programme',1,'p_programme_statement','parserVLOBJ.py',25),
+  ('programme -> statement DOTCOMMA programme','programme',3,'p_programme_recursive','parserVLOBJ.py',31),
+  ('statement -> assignation','statement',1,'p_statement','parserVLOBJ.py',37),
+  ('statement -> structure','statement',1,'p_statement','parserVLOBJ.py',38),
+  ('statement -> square','statement',1,'p_statement','parserVLOBJ.py',39),
+  ('statement -> pyramid','statement',1,'p_statement','parserVLOBJ.py',40),
+  ('statement -> randomShape','statement',1,'p_statement','parserVLOBJ.py',41),
+  ('statement -> color','statement',1,'p_statement','parserVLOBJ.py',42),
+  ('statement -> expression','statement',1,'p_statement','parserVLOBJ.py',43),
+  ('assignation -> IDENTIFIER EQUALS expression','assignation',3,'p_assignation','parserVLOBJ.py',51),
+  ('randomShape -> XS PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','randomShape',10,'p_random_shape','parserVLOBJ.py',56),
+  ('randomShape -> XS PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END','randomShape',12,'p_random_shape','parserVLOBJ.py',57),
+  ('randomnNumber -> XD PAR_START NUMBER COMMA NUMBER PAR_END','randomnNumber',6,'p_random_number','parserVLOBJ.py',67),
+  ('square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','square',10,'p_square','parserVLOBJ.py',72),
+  ('square -> SQUARE PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END','square',12,'p_square','parserVLOBJ.py',73),
+  ('pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','pyramid',10,'p_pyramid','parserVLOBJ.py',83),
+  ('pyramid -> PYRAMID PAR_START expression COMMA expression COMMA expression COMMA expression COMMA expression PAR_END','pyramid',12,'p_pyramid','parserVLOBJ.py',84),
+  ('color -> COLOR PAR_START expression COMMA expression COMMA expression COMMA expression PAR_END','color',10,'p_color','parserVLOBJ.py',94),
+  ('structure -> WHILE expression ACOL_START programme ACOL_END','structure',5,'p_while','parserVLOBJ.py',100),
+  ('structure -> IF PAR_START condition PAR_END ACOL_START programme ACOL_END','structure',7,'p_test','parserVLOBJ.py',105),
+  ('condition -> expression CONDITION expression','condition',3,'p_condition','parserVLOBJ.py',110),
+  ('expression -> IDENTIFIER ADD_OP UNDERSCORE ADD_OP','expression',4,'p_expression_increment','parserVLOBJ.py',115),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parserVLOBJ.py',120),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parserVLOBJ.py',121),
+  ('expression -> ADD_OP expression','expression',2,'p_expression_uminus','parserVLOBJ.py',126),
+  ('expression -> NUMBER','expression',1,'p_expression_num','parserVLOBJ.py',131),
+  ('expression -> STRING','expression',1,'p_expression_num','parserVLOBJ.py',132),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_IDENTIFIER','parserVLOBJ.py',138),
 ]

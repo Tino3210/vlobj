@@ -132,11 +132,55 @@ class OpNode(Node):
 class AssignNode(Node):
     type = '='
 
+
 class PrintNode(Node):
     type = 'print'
 
+
 class WhileNode(Node):
     type = 'while'
+
+
+class IfNode(Node):
+    type = 'if'
+
+
+class ConditionNode(Node):
+    type = 'condition'
+
+    def __init__(self, cond, children):
+        Node.__init__(self, children)
+        self.cond = cond
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
+
+    def __repr__(self):
+        return "%s (%s)" % (self.cond, self.nbargs)
+
+
+class RandomNode(Node):
+    type = 'randomNumber'
+
+    def __init__(self, children):
+        Node.__init__(self, children)
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
+
+
+class ShapeNode(Node):
+    type = 'randomShape'
+
+    def __init__(self, children):
+        Node.__init__(self, children)
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
+
 
 class SquareNode(Node):
     type = 'square'
@@ -148,6 +192,7 @@ class SquareNode(Node):
         except AttributeError:
             self.nbargs = 1
 
+
 class PyramidNode(Node):
     type = 'pyramid'
 
@@ -158,6 +203,7 @@ class PyramidNode(Node):
         except AttributeError:
             self.nbargs = 1
 
+
 class ColorNode(Node):
     type = 'color'
 
@@ -167,6 +213,7 @@ class ColorNode(Node):
             self.nbargs = len(children)
         except AttributeError:
             self.nbargs = 1
+
 
 class EntryNode(Node):
     type = 'ENTRY'
