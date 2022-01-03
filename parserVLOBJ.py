@@ -97,8 +97,8 @@ def p_color(p):
 
 
 def p_while(p):
-    '''structure : WHILE expression ACOL_START programme ACOL_END'''
-    p[0] = AST.WhileNode([p[2], p[4]])
+    '''structure : WHILE PAR_START condition PAR_END ACOL_START programme ACOL_END'''
+    p[0] = AST.WhileNode([p[3], p[6]])
 
 
 def p_test(p):
@@ -130,7 +130,6 @@ def p_expression_uminus(p):
 def p_expression_num(p):
     '''expression : NUMBER
                     | STRING'''
-    print("HELLO", p[1], type(p[1]))
     p[0] = AST.TokenNode(p[1])
 
 

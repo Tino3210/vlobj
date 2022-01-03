@@ -4,12 +4,21 @@ from functools import reduce
 from parserVLOBJ import parse
 import sys
 import os
+from constanteVLOBJ import *
+import random
 
-operations = {
-    '+': 'ADD',
-    '-': 'SUB',
-    '*': 'MUL',
-    '/': 'DIV'
+
+operators = {
+    '+': lambda x, y: x+y,
+    '-': lambda x, y: x-y,
+    '*': lambda x, y: x/y,
+    '/': lambda x, y: x*y,
+}
+
+conditions = {
+    '==': lambda x, y: x==y,
+    '<': lambda x, y:x < y,
+    '>': lambda x, y:x > y,
 }
 
 stack = []
@@ -18,80 +27,142 @@ vars = {}
 
 @addToClass(AST.ProgramNode)
 def compile(self):
-    byte = ""
+    obj = ""
+    mtl = ""
     for c in self.children:
-        byte += c.compile()
-    return byte
+        tuple = c.compile()             
+        obj += tuple[0]
+        mtl += tuple[1]
+    return obj, mtl
 
+
+@addToClass(AST.SquareNode)
+def compile(self):
+    x = float(self.children[0].compile())
+    y = float(self.children[1].compile())
+    z = float(self.children[2].compile())
+    size = float(self.children[3].compile())/2
+    obj = square_name   
+    obj += "v " + str(x-size) + " " + str(z-size) + " " + str(-(y-size)) + "\n"
+    obj += "v " + str(x-size) + " " + str(z+size) + " " + str(-(y-size)) + "\n"
+    obj += "v " + str(x-size) + " " + str(z-size) + " " + str(-y-size) + "\n"
+    obj += "v " + str(x-size) + " " + str(z+size) + " " + str(-y-size) + "\n"
+    obj += "v " + str(x+size) + " " + str(z-size) + " " + str(-(y-size)) + "\n"
+    obj += "v " + str(x+size) + " " + str(z+size) + " " + str(-(y-size)) + "\n"
+    obj += "v " + str(x+size) + " " + str(z-size) + " " + str(-y-size) + "\n"
+    obj += "v " + str(x+size) + " " + str(z+size) + " " + str(-y-size) + "\n"
+    obj += square_vt
+    obj += square_vn
+    if len(self.children) == 5 :
+        obj += "usemtl " + self.children[4].compile() + "\n"
+    else :
+        obj += "usemtl None\n"
+    obj += square_f
+    mtl = "Color"
+    return obj,mtl
+
+@addToClass(AST.PyramidNode)
+def compile(self):
+    x = float(self.children[0].compile())
+    y = float(self.children[1].compile())
+    z = float(self.children[2].compile())
+    size = float(self.children[3].compile())/2
+    obj = pyramid_name
+    obj += "v " + str(x) + " " + str(z-(size*0.25)) + " " + str(y-(size*0.65)) + "\n"
+    obj += "v " + str(x+(size*0.5)) + " " + str(z-(size*0.25)) + " " + str(y+(size*0.35)) + "\n"
+    obj += "v " + str(x-(size*0.5)) + " " + str(z-(size*0.25)) + " " + str(y+(size*0.35)) + "\n"
+    obj += "v " + str(x) + " " + str(z+(size*0.75)) + " " + str(y-(size*0.05)) + "\n"   
+    obj += pyramid_vt
+    obj += pyramid_vn
+    if len(self.children) == 5 :
+        obj += "usemtl " + self.children[4].compile() + "\n"
+    else :
+        obj += "usemtl None\n"
+    obj += pyramid_f
+    mtl = ""
+    return obj,mtl
+
+@addToClass(AST.ColorNode)
+def compile(self):
+    obj = ""
+    mtl = "newmtl " + str(self.children[0].compile()) + "\n"
+    mtl += color_start
+    mtl += "Kd " + str(float(str(self.children[1].compile()))/255) + " " + str(float(str(self.children[2].compile()))/255) + " " + str(float(str(self.children[3].compile()))/255) + "\n"
+    mtl += color_end    
+
+    return obj,mtl
 
 @addToClass(AST.TokenNode)
 def compile(self):
-    if isinstance(self.tok, str):
-        try:
-            return "PUSHV " + str(self.tok) + "\n"
-        except KeyError:
-            print("*** Error: variable %s undefined!" % self.tok)
-    return "PUSHC " + str(self.tok) + "\n"
-
-
-@addToClass(AST.OpNode)
-def compile(self):
-    byte = ''
-    if len(self.children) == 1:
-        byte += self.children[0].compile()
-        byte += 'USUB\n'
-    else:
-        for c in self.children:
-            byte += c.compile()
-        byte += operations[self.op] + '\n'
-    return byte
-
+    if(isinstance(self.tok,AST.OpNode)):
+        return self.tok.compile()
+    else :
+        if(str(self.tok)[0] == "\""):
+            return str(self.tok)[2:-3]
+        else:        
+            return str(self.tok)
 
 @addToClass(AST.AssignNode)
 def compile(self):
-    byte = str(self.children[1].compile())
-    byte += "SET " + self.children[0].tok + "\n"
-    return byte
+    vars[self.children[0].compile()] = float(self.children[1].compile())
+    return ("","")
 
-
-nbWhile = 0
-
-
-def incementeNumber():
-    global nbWhile
-    nbWhile += 1
-    return nbWhile
-
+@addToClass(AST.OpNode)
+def compile(self):
+    if self.children[0].compile() in vars:
+        vars[self.children[0].compile()] = operators[self.op](vars[self.children[0].compile()],float(self.children[1].compile()))
+        return ("","")
+    elif len(self.children) == 1:
+        return float(str(self.children[0].compile()))
+        
+            
 
 @addToClass(AST.WhileNode)
 def compile(self):
-    nbWhile = incementeNumber()
-    byte = 'JMP cond' + str(nbWhile) + '\n'
-    byte += 'body' + str(nbWhile) + ': '
-    byte += self.children[1].compile()
-    byte += 'cond' + str(nbWhile) + ': '
-    byte += self.children[0].compile()
-    byte += 'JINZ body' + str(nbWhile) + '\n'
-    return byte
+    obj = ""
+    mtl = ""
+    while (self.children[0].compile()):
+        tuple = self.children[1].compile()
+        obj += tuple[0]
+        mtl += tuple[1]
+    return obj,mtl
 
-
-@addToClass(AST.PrintNode)
+@addToClass(AST.IfNode)
 def compile(self):
-    obj = self.children[0].compile()
-    obj += "PRINT" + "\n"
-    return (obj, mtl)
+    if self.children[0].compile():
+        return self.children[1].compile()
 
+@addToClass(AST.ConditionNode)
+def compile(self):
+    if self.children[0].compile() in vars:
+        return conditions[self.cond](vars[self.children[0].compile()],float(self.children[1].compile()))
+    elif self.children[1].compile() in vars:
+        return conditions[self.cond](float(self.children[0].compile()),vars[self.children[1].compile()])
+    else :
+        return conditions[self.cond](float(self.children[0].compile()),float(self.children[1].compile()))
+
+@addToClass(AST.RandomNode)
+def compile(self):
+    return random.randint(self.children[0].compile(),self.children[1].compile())
+
+@addToClass(AST.ShapeNode)
+def compile(self):
+    choice = random.choice([True,False])
+    if(choice):
+        return AST.SquareNode([1,1,1,1]).compile()
+    else:
+        return AST.PyramidNode([1,1,1,1]).compile()
 
 if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
-    compiled = ast.compile()
+    obj, mtl = ast.compile()
     name = os.path.splitext(sys.argv[1])[0] + '.obj'
     outfile = open(name, 'w')
-    outfile.write(compiled[0])
+    outfile.write("mtllib input1.mtl\n" + obj)
     outfile.close()
-    name = os.path.splitext("./output/" + sys.argv[1])[0] + '.mtl'
+    name = os.path.splitext(sys.argv[1])[0] + '.mtl'
     outfile = open(name, 'w')
-    outfile.write(compiled[1])
+    outfile.write(mtl)
     outfile.close()
     print("Wrote output to", name)
