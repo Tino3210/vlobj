@@ -57,8 +57,8 @@ def compile(self):
         obj += "usemtl " + self.children[4].compile() + "\n"
     else :
         obj += "usemtl None\n"
-    obj += square_f
-    mtl = "Color"
+    obj += square_f()
+    mtl = ""
     return obj,mtl
 
 @addToClass(AST.PyramidNode)
@@ -68,17 +68,17 @@ def compile(self):
     z = float(self.children[2].compile())
     size = float(self.children[3].compile())/2
     obj = pyramid_name
-    obj += "v " + str(x) + " " + str(z-(size*0.25)) + " " + str(y-(size*0.65)) + "\n"
-    obj += "v " + str(x+(size*0.5)) + " " + str(z-(size*0.25)) + " " + str(y+(size*0.35)) + "\n"
-    obj += "v " + str(x-(size*0.5)) + " " + str(z-(size*0.25)) + " " + str(y+(size*0.35)) + "\n"
-    obj += "v " + str(x) + " " + str(z+(size*0.75)) + " " + str(y-(size*0.05)) + "\n"   
+    obj += "v " + str(x) + " " + str(z-(size*0.25)) + " " + str(-(y-(size*0.65))) + "\n"
+    obj += "v " + str(x+(size*0.5)) + " " + str(z-(size*0.25)) + " " + str(-(y+(size*0.35))) + "\n"
+    obj += "v " + str(x-(size*0.5)) + " " + str(z-(size*0.25)) + " " + str(-(y+(size*0.35))) + "\n"
+    obj += "v " + str(x) + " " + str(z+(size*0.75)) + " " + str(-(y-(size*0.05))) + "\n"   
     obj += pyramid_vt
     obj += pyramid_vn
     if len(self.children) == 5 :
         obj += "usemtl " + self.children[4].compile() + "\n"
     else :
         obj += "usemtl None\n"
-    obj += pyramid_f
+    obj += pyramid_f()
     mtl = ""
     return obj,mtl
 
@@ -97,25 +97,25 @@ def compile(self):
     if(isinstance(self.tok,AST.OpNode)):
         return self.tok.compile()
     else :
-        if(str(self.tok)[0] == "\""):
-            return str(self.tok)[2:-3]
-        else:        
-            return str(self.tok)
+        val = str(self.tok)[1:-2] if str(self.tok)[0] == "\'" else str(self.tok)
+        if(val in vars):
+            return vars[val]
+        else:
+            return val
 
 @addToClass(AST.AssignNode)
 def compile(self):
-    vars[self.children[0].compile()] = float(self.children[1].compile())
+    vars[str(self.children[0])[1:-2]] = float(self.children[1].compile())
     return ("","")
 
 @addToClass(AST.OpNode)
 def compile(self):
-    if self.children[0].compile() in vars:
-        vars[self.children[0].compile()] = operators[self.op](vars[self.children[0].compile()],float(self.children[1].compile()))
+    if str(self.children[0])[1:-2] in vars:
+        vars[str(self.children[0])[1:-2]] = operators[self.op](vars[str(self.children[0])[1:-2]],float(self.children[1].compile()))
         return ("","")
     elif len(self.children) == 1:
-        return float(str(self.children[0].compile()))
-        
-            
+        return operators[self.op](0,float(self.children[0].compile()))
+    #return ("","")
 
 @addToClass(AST.WhileNode)
 def compile(self):
@@ -129,8 +129,16 @@ def compile(self):
 
 @addToClass(AST.IfNode)
 def compile(self):
-    if self.children[0].compile():
-        return self.children[1].compile()
+    if len(self.children) == 2:
+        if self.children[0].compile():
+            return self.children[1].compile()
+    else:
+        if self.children[0].compile():
+            return self.children[1].compile()
+        else:
+            return self.children[2].compile()       
+    return ("","")
+
 
 @addToClass(AST.ConditionNode)
 def compile(self):
@@ -143,15 +151,17 @@ def compile(self):
 
 @addToClass(AST.RandomNode)
 def compile(self):
-    return random.randint(self.children[0].compile(),self.children[1].compile())
+    x = self.children[0].compile()
+    y = self.children[1].compile()
+    return random.randint(float(x),float(y))
 
 @addToClass(AST.ShapeNode)
 def compile(self):
     choice = random.choice([True,False])
     if(choice):
-        return AST.SquareNode([1,1,1,1]).compile()
+        return AST.SquareNode(self.children).compile()
     else:
-        return AST.PyramidNode([1,1,1,1]).compile()
+        return AST.PyramidNode(self.children).compile()
 
 if __name__ == "__main__":
     prog = open(sys.argv[1]).read()

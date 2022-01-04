@@ -1,7 +1,7 @@
 import sys
 import ply.yacc as yacc
 import AST
-from lex import tokens
+from lexVLOBJ import tokens
 import os
 import random
 
@@ -39,6 +39,7 @@ def p_statement(p):
                     | square
                     | pyramid
                     | randomShape
+                    | randomNumber
                     | color
                     | expression'''
     try:
@@ -48,7 +49,8 @@ def p_statement(p):
 
 
 def p_assignation(p):
-    'assignation : IDENTIFIER EQUALS expression'
+    '''assignation : IDENTIFIER EQUALS expression
+                    | IDENTIFIER EQUALS randomNumber'''    
     p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
@@ -64,8 +66,8 @@ def p_random_shape(p):
 
 
 def p_random_number(p):
-    'randomnNumber : XD PAR_START NUMBER COMMA NUMBER PAR_END'
-    p[0] = AST.RandomNode(AST.TokenNode(p[3]), AST.TokenNode(p[5]))
+    'randomNumber : XD PAR_START expression COMMA expression PAR_END'
+    p[0] = AST.RandomNode([AST.TokenNode(p[3]), AST.TokenNode(p[5])])
 
 
 def p_square(p):
@@ -102,8 +104,12 @@ def p_while(p):
 
 
 def p_test(p):
-    'structure : IF PAR_START condition PAR_END ACOL_START programme ACOL_END'
-    p[0] = AST.IfNode([p[3], p[6]])
+    '''structure : IF PAR_START condition PAR_END ACOL_START programme ACOL_END
+                    | IF PAR_START condition PAR_END ACOL_START programme ACOL_END ELSE ACOL_START programme ACOL_END'''
+    try:
+        p[0] = AST.IfNode([p[3], p[6], p[10]])
+    except:
+        p[0] = AST.IfNode([p[3], p[6]])
 
 
 def p_condition(p):
@@ -126,10 +132,12 @@ def p_expression_uminus(p):
     'expression : ADD_OP expression %prec UMINUS'
     p[0] = AST.OpNode(p[1], [p[2]])
 
+def p_expression_string(p):
+    'expression : APO IDENTIFIER APO'
+    p[0] = AST.TokenNode(p[2])
 
 def p_expression_num(p):
-    '''expression : NUMBER
-                    | STRING'''
+    '''expression : NUMBER'''
     p[0] = AST.TokenNode(p[1])
 
 
@@ -156,7 +164,7 @@ yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
-    result = yacc.parse(prog, debug=1)
+    result = yacc.parse(prog, debug=0)
     print(result)
 
     graph = result.makegraphicaltree()

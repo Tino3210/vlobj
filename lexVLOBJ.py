@@ -26,7 +26,8 @@ tokens = (
     'STRING',
     'CONDITION',
     'DOTCOMMA',
-    'UNDERSCORE'
+    'UNDERSCORE',
+    'APO'
 ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 t_ADD_OP = r'(\+)|(-)'
@@ -37,7 +38,7 @@ t_EQUALS = r'\=\)'
 t_ACOL_START = r'\:\('
 t_ACOL_END = r'\):'
 t_COMMA = r'\,'
-t_STRING = r'\'[a-zA-Z_]\w*\''
+t_APO = r'\''
 t_CONDITION = r'(>)|(<)|(\=\=)'
 t_DOTCOMMA = r';'
 t_UNDERSCORE = r'\_'

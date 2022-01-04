@@ -143,6 +143,12 @@ class WhileNode(Node):
 
 class IfNode(Node):
     type = 'if'
+    def __init__(self, children):
+        Node.__init__(self, children)
+        try:
+            self.nbargs = len(children)
+        except AttributeError:
+            self.nbargs = 1
 
 
 class ConditionNode(Node):
