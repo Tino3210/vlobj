@@ -1,3 +1,8 @@
+'''
+lexVLOBJ.py
+Authors : Izzo Valentino, Loïc Frossard
+Python version : 3.9.2
+'''
 import sys
 import ply.lex as lex
 
@@ -23,7 +28,6 @@ tokens = (
     'ACOL_START',
     'ACOL_END',
     'COMMA',
-    'STRING',
     'CONDITION',
     'DOTCOMMA',
     'UNDERSCORE',

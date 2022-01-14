@@ -1,3 +1,8 @@
+'''
+parserVLOBJ.py
+Authors : Izzo Valentino, Loïc Frossard
+Python version : 3.9.2
+'''
 import sys
 import ply.yacc as yacc
 import AST
@@ -50,7 +55,7 @@ def p_statement(p):
 
 def p_assignation(p):
     '''assignation : IDENTIFIER EQUALS expression
-                    | IDENTIFIER EQUALS randomNumber'''    
+                    | IDENTIFIER EQUALS randomNumber'''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
@@ -132,9 +137,11 @@ def p_expression_uminus(p):
     'expression : ADD_OP expression %prec UMINUS'
     p[0] = AST.OpNode(p[1], [p[2]])
 
+
 def p_expression_string(p):
     'expression : APO IDENTIFIER APO'
     p[0] = AST.TokenNode(p[2])
+
 
 def p_expression_num(p):
     '''expression : NUMBER'''
@@ -151,8 +158,8 @@ def p_expression_IDENTIFIER(p):
 
 
 def p_error(p):
-    print("Syntax errorinline %d" % p.lineno)
-    yacc.errok()
+    print("Syntax error in line %d" % p.lineno)
+    print("The error is around %s" % p.value)
 
 
 def parse(program):
