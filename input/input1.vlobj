@@ -1,3 +1,2 @@
-Color('bleu', 0, 0, 255);
-Square(1, 2, 3, 4,'bleu');
+Square(1, 2, 3, 4);
 Pyramid(10, 0, 0, 2)

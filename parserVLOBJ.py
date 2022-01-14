@@ -1,5 +1,6 @@
 '''
 parserVLOBJ.py
+Description : 
 Authors : Izzo Valentino, Loïc Frossard
 Python version : 3.9.2
 '''
@@ -8,7 +9,6 @@ import ply.yacc as yacc
 import AST
 from lexVLOBJ import tokens
 import os
-import random
 
 operations = {
     '+': lambda x, y: x+y,
@@ -22,19 +22,16 @@ precedence = (
     ('right', 'UMINUS'),
 )
 
-
 vars = {}
 
 
 def p_programme_statement(p):
     'programme : statement'
-    #p[0] = p[1]
     p[0] = AST.ProgramNode(p[1])
 
 
 def p_programme_recursive(p):
     '''programme : statement DOTCOMMA programme'''
-    #p[0] = p[3]
     p[0] = AST.ProgramNode([p[1]] + p[3].children)
 
 
@@ -171,7 +168,7 @@ yacc.yacc(outputdir='generated')
 
 if __name__ == "__main__":
     prog = open(sys.argv[1]).read()
-    result = yacc.parse(prog, debug=0)
+    result = yacc.parse(prog)
     print(result)
 
     graph = result.makegraphicaltree()

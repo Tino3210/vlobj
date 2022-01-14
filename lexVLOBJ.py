@@ -1,5 +1,6 @@
 '''
 lexVLOBJ.py
+Description : The lexer detect the symbol of the language VLOBJ
 Authors : Izzo Valentino, Loïc Frossard
 Python version : 3.9.2
 '''

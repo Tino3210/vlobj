@@ -1,5 +1,6 @@
 '''
 constanteVLOBJ.py
+Description : Contains the constants use in the obj and mtl files. Two methodes increment the index of the shapes.
 Authors : Izzo Valentino, Loïc Frossard
 Python version : 3.9.2
 '''

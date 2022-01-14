@@ -1,6 +1,12 @@
+'''
+compilateurVLOBJ.py
+Description : This is the compiler of the projet. Compile the VLOBJ into two files, .obj and .mtl. Theses files
+can be import in Blender to use the shapes create with vlobj
+Authors : Izzo Valentino, Loïc Frossard
+Python version : 3.9.2
+'''
 import AST
 from AST import addToClass
-from functools import reduce
 from parserVLOBJ import parse
 import sys
 import os
@@ -22,7 +28,6 @@ conditions = {
     '>': lambda x, y: x > y,
 }
 
-stack = []
 vars = {}
 
 
@@ -191,6 +196,8 @@ def shapeContainsSTR(x, y, z, size):
 
 
 if __name__ == "__main__":
+    print("Compilator VLOBJ")
+    print("Authors : Izzo Valentino - Frossard Loïc\n")
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
     obj, mtl = ast.compile()
@@ -198,8 +205,9 @@ if __name__ == "__main__":
     outfile = open(name, 'w')
     outfile.write("mtllib input1.mtl\n" + obj)
     outfile.close()
+    print("Wrote output to ", name)
     name = os.path.splitext(sys.argv[1])[0] + '.mtl'
     outfile = open(name, 'w')
     outfile.write(mtl)
     outfile.close()
-    print("Wrote output to", name)
+    print("Wrote output to ", name)
